@@ -296,12 +296,10 @@ cannot leak one user's question to another.
   unrelated to Large Cap; `amc_info` is 2017-vintage. The specific
   field-precedence rules live in `mf_faq/config.py` (`STALE_KEYS`, `DENY_KEYS`,
   `AMC_LEVEL_KEYS`) and are documented inline.
-- **Only the Groww expense ratio is ever stated.** The payload also carries
-  `base_expense_ratio` (0.63% for Small Cap against a 0.78% expense ratio): the
-  base is the platform fee alone, the expense ratio is that plus the scheme's
-  other charges. Answering with the base invites the reader to conclude the page
-  is showing something else, so it is dropped at ingest (`DENY_KEYS` in
-  `mf_faq/config.py`) and is in no chunk, no answer, and no prompt.
+- **Only one expense ratio is stated.** The cached Groww data also carries a
+  separate `base_expense_ratio` field that is not shown on the visible page. It
+  is excluded at ingest (`DENY_KEYS` in `mf_faq/config.py`), so every answer
+  gives the single figure users can see and verify on the page.
 - **The deterministic fallback quotes the most on-topic sentence only.** Without
   a key, `mf_faq.answer.fallback_answer` scores each sentence of the retrieved
   chunk against the question and keeps only those that tie for best, so a
