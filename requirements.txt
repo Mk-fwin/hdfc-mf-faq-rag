@@ -1,0 +1,28 @@
+# Runtime dependencies, one per thing this code actually imports.
+#   app.py / mf_faq.retrieval, mf_faq.store  -> chromadb
+#   mf_faq.embed                             -> sentence-transformers
+#   mf_faq.fetch                             -> requests
+#   mf_faq.answer                            -> groq
+#   app.py                                   -> streamlit
+#
+# Upper bounds are the next major version, verified against the versions this
+# project was built and tested with. No torchvision: it is not imported and
+# sentence-transformers does not require it.
+
+requests>=2.32,<3
+chromadb>=1.5,<2
+sentence-transformers>=6.1,<7
+groq>=1.7,<2
+streamlit>=1.64,<2
+
+# Pinned explicitly rather than left to a transitive resolver. numpy arrives as
+# a dependency of chromadb, sentence-transformers and streamlit anyway; it is
+# named here because the embedding path consumes numpy arrays directly
+# (mf_faq.embed: convert_to_numpy=True) and the numpy 2.x ABI boundary is a real
+# source of silent breakage in this stack.
+numpy>=1.26,<3
+
+# Not a dependency of anything above:
+#   python-dotenv -- mf_faq.answer parses .env itself (answer.py::_read_env_file),
+#                     so it needs no library to do it.
+#   pytest        -- there is no test suite in this repository.

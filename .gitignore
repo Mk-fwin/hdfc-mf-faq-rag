@@ -1,0 +1,27 @@
+# Secrets -- must never be committed
+.env
+.env.*
+!.env.example
+
+# Virtualenv
+.venv/
+venv/
+
+# Vector store. Rebuilt on first app start from the committed pages in
+# data/raw/, so it never needs to be committed.
+chroma_db/
+
+# Generated artefacts
+chunks.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS
+.DS_Store
+
+# NOTE: data/raw/ and data/manifest.json are deliberately NOT ignored. They are
+# the committed corpus: the app builds its index from them offline on first
+# start, so a clone needs no network access and no manual ingest step.
